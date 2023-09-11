@@ -26,7 +26,7 @@ public class MenuJogoIndividual {
                 case 6 -> valido = true;
                 case 7 -> valido = true;
                 case 0 -> valido = true;
-                default -> System.out.println("Opção inválida");
+                default -> System.out.println("Valor inválido. Insira novamente");
             }
         }
 

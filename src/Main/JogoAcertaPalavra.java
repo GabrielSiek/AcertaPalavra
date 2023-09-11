@@ -1,6 +1,6 @@
 package Main;
 
-import JogosIndividual.JogoIndividual;
+import Jogos.JogoIndividual;
 import Menus.MenuInicial;
 
 public class JogoAcertaPalavra {
@@ -18,11 +18,17 @@ public class JogoAcertaPalavra {
             int opcao = menuInicial.opcaoMenuInicial();
             switch (opcao) {
                 case 0 -> encerrarJogo = true;
-                case 1 -> new JogoIndividual().executar();
+                case 1 -> {
+                    JogoIndividual jogoIndividual = new JogoIndividual();
+                    jogoIndividual.executar();
+                    encerrarJogo = menuInicial.fimDeJogoIndividual(jogoIndividual.getPalavra(), jogoIndividual.getTentativas());
+                }
                 case 2 -> {}
             }
+
         }
-        System.out.println("Fim de jogo");
+        System.out.println("Obrigado por jogar meu jogo!");
+        System.out.println("Volte sempre :)");
     }
 }
 

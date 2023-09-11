@@ -1,18 +1,22 @@
-package JogosIndividual;
+package Jogos;
 
 import Main.JogoAcertaPalavra;
 import Menus.MenuJogoIndividual;
 import Verificadores.VerificaPalavras;
+import Verificadores.VerificaQuantChar;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 
 public class JogoIndividual {
+    private MenuJogoIndividual menuJogoIndividual = new MenuJogoIndividual();
+    private List<String> palavras;
+    VerificaQuantChar verificaQuantChar = new VerificaQuantChar();
 
-    List<String> palavras;
+    private String palavra = " ";
+    private int tentativas = 0;
     public void executar(){
-        MenuJogoIndividual menuJogoIndividual = new MenuJogoIndividual();
         int opcao = menuJogoIndividual.opcaoMenuJogoIndividual();
 
         switch (opcao) {
@@ -29,22 +33,19 @@ public class JogoIndividual {
 
 
     private void adivinharPalavra(int letras) {
-        Scanner sc = new Scanner(System.in);
-        int tentativas = 0;
-        String palavra = gerarPalavra(letras);
+        palavra = gerarPalavra(letras);
         String palavraAdivinhar = UnderLinePalavra(letras);
         String palavraTentativa = "";
         while (!palavraTentativa.equals(palavra)) {
             System.out.println(palavraAdivinhar);
             System.out.print("palavra: ");
-            palavraTentativa = sc.nextLine().toLowerCase();
+            palavraTentativa = verificaQuantChar.verificaQuantChar(letras);
             if(!palavraTentativa.equals(palavra)) {
                 revisarPalavra(palavra, palavraTentativa);
                 palavraAdivinhar = reescreverPalavra(palavra, palavraTentativa, palavraAdivinhar);
             }
             tentativas++;
         }
-        System.out.println("Acertou a palavra em " + tentativas + " tentativas");
     }
 
     private void adicionaPalavras(int letras) {
@@ -70,24 +71,36 @@ public class JogoIndividual {
     }
 
     private void revisarPalavra(String palavraCerta, String palavraTentativa) {
+        StringBuilder str = new StringBuilder(palavraCerta);
         for(int i = 0; i < palavraCerta.length(); i++){
             String charPC = Character.toString(palavraCerta.charAt(i));
             String charPT = Character.toString(palavraTentativa.charAt(i));
-            if(charPC.equals(charPT))
+            if(charPC.equals(charPT)) {
                 System.out.println("A letra " + charPT + " está na posição certa");
+                str.setCharAt(i, '_');
+            }
             else
-                if(palavraCerta.contains(charPT))
+                if(str.toString().contains(charPT))
                     System.out.println("A letra " + charPT + " está na palavra");
         }
     }
 
     private String reescreverPalavra(String palavraCerta, String palavraTentativa, String palavraAdivinhar) {
+        StringBuilder str = new StringBuilder(palavraAdivinhar);
         for(int i = 0; i < palavraCerta.length(); i++){
-            String charPC = Character.toString(palavraCerta.charAt(i));
-            String charPT = Character.toString(palavraTentativa.charAt(i));
+            Character charPC = palavraCerta.charAt(i);
+            Character charPT = palavraTentativa.charAt(i);
             if(charPC.equals(charPT))
-                palavraAdivinhar.replace(palavraAdivinhar.charAt(i), palavraCerta.charAt(i));
+                str.setCharAt(i, charPC);
         }
-        return palavraAdivinhar.toString();
+        return str.toString();
+    }
+
+    public String getPalavra() {
+        return palavra;
+    }
+
+    public int getTentativas() {
+        return tentativas;
     }
 }

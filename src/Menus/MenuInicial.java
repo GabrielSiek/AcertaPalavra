@@ -2,8 +2,6 @@ package Menus;
 
 import Verificadores.VerificaInt;
 
-import java.util.Scanner;
-
 public class MenuInicial {
 
 
@@ -34,5 +32,27 @@ public class MenuInicial {
     public int opcaoMenuInicial() {
         printMenuInicial();
         return verificaOpcaoMenuInicial();
+    }
+
+    public boolean fimDeJogoIndividual(String palavra, int tentativas) {
+        VerificaInt verificaInt = new VerificaInt();
+        System.out.println(palavra);
+        System.out.println("Parabéns!");
+        System.out.println("Acertou a palavra em " + tentativas + " tentativas");
+        System.out.println("Digite 1 para voltar ao menu principal");
+        System.out.println("Digite 2 para sair");
+        boolean valido = false;
+        while (!valido) {
+            switch (verificaInt.verificaInt()) {
+                case 1 -> {
+                    valido = true;
+                }
+                case 2 -> {
+                    return true;
+                }
+                default -> System.out.println("Valor inválido. Insira novamente");
+            }
+        }
+        return false;
     }
 }
