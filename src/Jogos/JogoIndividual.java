@@ -79,9 +79,11 @@ public class JogoIndividual {
                 System.out.println("A letra " + charPT + " está na posição certa");
                 str.setCharAt(i, '_');
             }
-            else
-                if(str.toString().contains(charPT))
-                    System.out.println("A letra " + charPT + " está na palavra");
+        }
+        for(int i = 0; i < palavraCerta.length(); i++){
+            String charPT = Character.toString(palavraTentativa.charAt(i));
+            if(str.toString().contains(charPT))
+                System.out.println("A letra " + charPT + " está na palavra");
         }
     }
 

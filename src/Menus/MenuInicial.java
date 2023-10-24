@@ -25,7 +25,7 @@ public class MenuInicial {
 
     private void printMenuInicial() {
         System.out.println("Digite 1 para jogar individual");
-        System.out.println("Digite 2 para jogar 1x1");
+        //System.out.println("Digite 2 para jogar 1x1");
         System.out.println("Digite 0 para sair");
     }
 
